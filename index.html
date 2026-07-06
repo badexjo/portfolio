@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batool Bader | Junior Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0b;
+    --bg-soft: #131316;
+    --line: #232327;
+    --pink: #ff3d8a;
+    --pink-dim: #d6006f;
+    --pink-glow: rgba(255,61,138,0.35);
+    --text: #f5f5f7;
+    --text-dim: #8a8a93;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--pink);color:#0a0a0b;}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;top:0;right:0;left:0;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6%;
+    z-index:100;
+    background:rgba(10,10,11,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .logo{
+    font-family:var(--mono);font-weight:700;font-size:18px;
+    color:var(--text);
+  }
+  .logo span{color:var(--pink);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{
+    color:var(--text-dim);text-decoration:none;font-size:14px;
+    font-family:var(--mono);
+    transition:color .25s;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-6px;left:0;width:0;height:1px;
+    background:var(--pink);transition:width .25s;
+  }
+  .nav-links a:hover::after{width:100%;}
+
+  /* ===== HERO ===== */
+  header{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 6%;
+    position:relative;
+  }
+  header::before{
+    content:'';position:absolute;top:15%;left:-10%;
+    width:420px;height:420px;border-radius:50%;
+    background:radial-gradient(circle, var(--pink-glow), transparent 70%);
+    filter:blur(40px);pointer-events:none;
+  }
+  .terminal{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:10px;
+    max-width:640px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    position:relative;
+    z-index:1;
+    margin-bottom:36px;
+  }
+  .terminal-bar{
+    display:flex;gap:8px;align-items:center;
+    padding:12px 16px;border-bottom:1px solid var(--line);
+  }
+  .dot{width:11px;height:11px;border-radius:50%;}
+  .dot:nth-child(1){background:#ff5f57;}
+  .dot:nth-child(2){background:#febc2e;}
+  .dot:nth-child(3){background:#28c840;}
+  .terminal-title{
+    margin-right:auto;font-family:var(--mono);font-size:12px;color:var(--text-dim);
+  }
+  .terminal-body{
+    padding:22px 20px;font-family:var(--mono);font-size:15px;line-height:1.9;
+    direction:ltr;text-align:left;
+  }
+  .terminal-body .prompt{color:var(--pink);}
+  .terminal-body .key{color:#7ee787;}
+  .terminal-body .str{color:var(--text);}
+  .cursor{
+    display:inline-block;width:8px;height:16px;background:var(--pink);
+    vertical-align:middle;animation:blink 1s step-end infinite;margin-right:4px;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  h1.role{
+    font-family:var(--mono);
+    font-size:clamp(32px, 5vw, 58px);
+    font-weight:800;
+    line-height:1.15;
+    margin-bottom:18px;
+  }
+  h1.role .accent{color:var(--pink);}
+  .lead{
+    color:var(--text-dim);
+    font-size:18px;
+    max-width:560px;
+    line-height:1.8;
+    margin-bottom:34px;
+  }
+  .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:14px;
+    padding:14px 26px;border-radius:6px;
+    text-decoration:none;
+    transition:transform .2s, box-shadow .2s;
+    display:inline-block;
+  }
+  .btn-primary{
+    background:var(--pink);color:#0a0a0b;font-weight:700;
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 30px var(--pink-glow);}
+  .btn-ghost{
+    border:1px solid var(--line);color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--pink);color:var(--pink);transform:translateY(-3px);}
+
+  /* ===== SECTION SHARED ===== */
+  section{padding:120px 6%;position:relative;}
+  .eyebrow{
+    font-family:var(--mono);color:var(--pink);font-size:13px;
+    letter-spacing:1px;margin-bottom:14px;
+  }
+  .eyebrow::before{content:'// ';color:var(--text-dim);}
+  h2.title{
+    font-family:var(--mono);font-size:clamp(26px,3.5vw,40px);
+    font-weight:700;margin-bottom:50px;
+  }
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.show{opacity:1;transform:translateY(0);}
+
+  /* ===== ABOUT ===== */
+  #about{border-top:1px solid var(--line);background:var(--bg-soft);}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:start;}
+  .about-grid p{color:var(--text-dim);font-size:16.5px;line-height:1.95;margin-bottom:18px;}
+  .stat-box{
+    border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:16px;
+    background:var(--bg);
+  }
+  .stat-box .num{font-family:var(--mono);color:var(--pink);font-size:30px;font-weight:800;}
+  .stat-box .label{color:var(--text-dim);font-size:13px;font-family:var(--mono);margin-top:4px;}
+  @media(max-width:800px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ===== SKILLS ===== */
+  .skills-wrap{display:flex;flex-wrap:wrap;gap:12px;}
+  .skill-chip{
+    font-family:var(--mono);font-size:14px;
+    border:1px solid var(--line);border-radius:30px;
+    padding:10px 20px;color:var(--text);
+    transition:.25s;
+  }
+  .skill-chip:hover{border-color:var(--pink);color:var(--pink);background:rgba(255,61,138,0.06);}
+
+  /* ===== PROJECTS ===== */
+  #projects{border-top:1px solid var(--line);}
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  @media(max-width:1000px){.projects-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:700px){.projects-grid{grid-template-columns:1fr;}}
+  .card{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;
+    padding:28px;transition:transform .3s, border-color .3s, box-shadow .3s;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:var(--pink-dim);
+    box-shadow:0 20px 40px rgba(255,61,138,0.12);
+  }
+
+  /* --- Multi-image gallery per card --- */
+  .card-gallery{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:6px;
+    margin-bottom:18px;
+  }
+  .card-gallery img{
+    width:100%;height:90px;object-fit:cover;border-radius:6px;
+    display:block;cursor:pointer;transition:transform .25s, opacity .25s;
+  }
+  .card-gallery img:hover{transform:scale(1.04);opacity:.9;}
+  .card-gallery .placeholder{
+    width:100%;height:90px;border-radius:6px;
+    background:linear-gradient(135deg, var(--bg), rgba(255,61,138,0.12));
+    border:1px dashed var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);color:var(--text-dim);font-size:10.5px;text-align:center;
+    padding:6px;
+  }
+  /* if a card has only one image slot, let it span full width */
+  .card-gallery.single{grid-template-columns:1fr;}
+  .card-gallery.single img,
+  .card-gallery.single .placeholder{height:150px;}
+
+  .card-num{font-family:var(--mono);color:var(--pink);font-size:13px;margin-bottom:14px;}
+  .card h3{font-size:20px;margin-bottom:10px;}
+  .card p{color:var(--text-dim);font-size:14.5px;line-height:1.75;margin-bottom:18px;flex-grow:1;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tag{
+    font-family:var(--mono);font-size:11.5px;color:var(--pink);
+    border:1px solid var(--pink-dim);border-radius:4px;padding:3px 9px;
+  }
+  .card-link{
+    font-family:var(--mono);font-size:14px;color:var(--text);
+    text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  }
+  .card-link:hover{color:var(--pink);}
+
+  /* ===== LIGHTBOX (click to enlarge gallery images) ===== */
+  .lightbox{
+    display:none;position:fixed;inset:0;background:rgba(10,10,11,0.92);
+    z-index:200;align-items:center;justify-content:center;padding:5%;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90%;max-height:85vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.6);}
+  .lightbox-close{
+    position:absolute;top:24px;right:34px;font-family:var(--mono);color:var(--text);
+    font-size:28px;cursor:pointer;
+  }
+
+  /* ===== CONTACT ===== */
+  #contact{border-top:1px solid var(--line);background:var(--bg-soft);text-align:center;}
+  #contact h2.title{margin-bottom:20px;}
+  #contact .lead{margin:0 auto 40px;}
+  .contact-email{
+    font-family:var(--mono);font-size:clamp(22px,4vw,36px);font-weight:700;
+    color:var(--text);text-decoration:none;
+    display:inline-block;margin-bottom:44px;
+    border-bottom:2px solid var(--pink);padding-bottom:6px;
+  }
+  .contact-email:hover{color:var(--pink);}
+  .social-row{display:flex;justify-content:center;gap:26px;}
+  .social-row a{
+    font-family:var(--mono);color:var(--text-dim);text-decoration:none;font-size:14px;
+    border:1px solid var(--line);padding:12px 22px;border-radius:6px;transition:.25s;
+  }
+  .social-row a:hover{border-color:var(--pink);color:var(--pink);}
+
+  footer{
+    text-align:center;padding:26px 6%;color:var(--text-dim);
+    font-family:var(--mono);font-size:12.5px;border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Batool<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="terminal-title">whoami.sh</div>
+    </div>
+    <div class="terminal-body">
+      <div><span class="prompt">$</span> whoami</div>
+      <div><span class="key">const</span> dev = <span class="str">"Batool Bader"</span>;</div>
+      <div><span class="key">const</span> role = <span class="str">"Junior Full-Stack Developer (.NET & Flutter)"</span><span class="cursor"></span></div>
+    </div>
+  </div>
+
+  <h1 class="role">Building solid <span class="accent">.NET backends</span> and smooth <span class="accent">mobile apps</span>.</h1>
+  <p class="lead">Full-Stack Developer specializing in .NET Backend and Flutter Mobile. I turn ideas into systems that actually work — clean REST APIs built with Clean Architecture, and cross-platform apps powered by Firebase.</p>
+  <div class="btn-row">
+    <a href="#projects" class="btn btn-primary">View My Projects</a>
+    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="eyebrow">About</div>
+  <h2 class="title">Who I Am</h2>
+  <div class="about-grid">
+    <div class="reveal">
+      <p>Full-Stack Developer with a degree in Computer Engineering from Yarmouk University, specializing in building REST APIs with ASP.NET Core, Clean Architecture, and MediatR, and developing cross-platform mobile apps with Flutter and Firebase.</p>
+      <p>I've worked on complete systems with real-time notifications via SignalR, PDF report exports, and both SQL and NoSQL databases. I care about clean, scalable code, and I'm always learning new tools (most recently AWS and Deep Learning).</p>
+    </div>
+    <div class="reveal">
+      <div class="stat-box"><div class="num">7+</div><div class="label">Projects Completed</div></div>
+      <div class="stat-box"><div class="num">6</div><div class="label">Professional Certifications</div></div>
+      <div class="stat-box"><div class="num">.NET / Flutter</div><div class="label">Backend + Mobile Focus</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="eyebrow">My Toolkit</div>
+  <h2 class="title">Technical Skills</h2>
+  <div class="skills-wrap reveal">
+    <span class="skill-chip">C#</span>
+    <span class="skill-chip">ASP.NET Core Web API</span>
+    <span class="skill-chip">EF Core</span>
+    <span class="skill-chip">MediatR</span>
+    <span class="skill-chip">SignalR</span>
+    <span class="skill-chip">JWT</span>
+    <span class="skill-chip">RESTful APIs</span>
+    <span class="skill-chip">Flutter & Dart</span>
+    <span class="skill-chip">Provider / GetX</span>
+    <span class="skill-chip">Firebase (Auth, Firestore, Storage)</span>
+    <span class="skill-chip">Google Maps API</span>
+    <span class="skill-chip">SQL Server</span>
+    <span class="skill-chip">MongoDB</span>
+    <span class="skill-chip">Clean Architecture</span>
+    <span class="skill-chip">Repository Pattern</span>
+    <span class="skill-chip">Git & GitHub</span>
+    <span class="skill-chip">Postman & Swagger</span>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="eyebrow">My Work</div>
+  <h2 class="title">Selected Projects</h2>
+  <div class="projects-grid">
+
+    <!-- Replace each placeholder div with an <img src="..."> once you send the screenshots.
+         Add/remove <div class="placeholder">...</div> or <img> tags freely — the grid auto-wraps. -->
+    <div class="card reveal">
+      <div class="card-gallery">
+         <img src="m.1.JPG" alt="App screen 1">
+         <img src="m.3.JPG" alt="App screen 2">
+         <img src="swagger.jfif" alt="Swagger / API">
+         <img src="er.JPG" alt="ER Diagram">
+       
+      </div>
+      <div class="card-num">01</div>
+      <h3>Maintenance System App</h3>
+      <p>Full maintenance management system (freelance) — maintenance requests with real-time notifications via SignalR, a Flutter mobile app for viewing machine cards and exporting PDF reports, with role-based access control (RBAC).</p>
+      <div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">EF Core</span><span class="tag">SignalR</span><span class="tag">Flutter</span></div>
+    
+    </div>
+
+    <div class="card reveal">
+      <div class="card-gallery">
+         <img src="l.1.JPG" alt="Web screen 1">
+          <img src="l.2.JPG" alt="Web screen 2">    
+                    <img src="l.3.JPG" alt="Web screen 3">
+          <img src="l.4.JPG" alt="Web screen 4">
+
+
+      </div>
+      <div class="card-num">02</div>
+      <h3>Library Management System</h3>
+      <p>Full-stack library management system with a responsive web UI (Flutter Web), JWT-protected APIs, a relational database design, and DTOs for safe, efficient data transfer.</p>
+      <div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">SQL Server</span><span class="tag">Flutter Web</span><span class="tag">JWT</span></div>
+      <a href="https://github.com/batool-bader30/library-management-frontend" target="_blank" class="card-link">View on GitHub ↗</a>
+       <a href="https://www.figma.com/design/lpaZsAlrkksobRxOgnD1h1/Library-Management-System?node-id=0-1&p=f" target="_blank" class="card-link">View full design ↗</a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-gallery">
+        <img src="e.1.jfif" alt="Web screen 1">
+        <img src="e.2.jfif" alt="Web screen 1">
+      </div>
+      <div class="card-num">03</div>
+      <h3>E-Learning System</h3>
+      <p>Backend-focused project built with Clean Architecture (Generic Repository and Unit of Work), real-time notifications with SignalR, video processing with FFmpeg, and safe audit tracking via interceptors.</p>
+      <div class="tags"><span class="tag">ASP.NET Core</span><span class="tag">EF Core</span><span class="tag">SignalR</span><span class="tag">SQL Server</span></div>
+      <a href="https://github.com/Nourhanshaban78/ElearningWebApplication" target="_blank" class="card-link">View on GitHub ↗</a>
+    </div>
+
+
+    <div class="card reveal">
+      <div class="card-gallery">
+        <img src="c.1.jfif" alt="App screen 1">
+       <img src="c.2.jfif" alt="App screen 2">
+       <img src="c.3.jfif" alt="App screen 3">
+       <img src="c.4.jfif" alt="App screen 4">
+      </div>
+      <div class="card-num">05</div>
+      <h3>Car Rental Application</h3>
+      <p>Mobile app for browsing and filtering cars with advanced filters and renting them, with live location tracking via Google Maps and electronic payment via the Stripe API.</p>
+      <div class="tags"><span class="tag">Flutter</span><span class="tag">Firebase</span><span class="tag">Google Maps</span><span class="tag">Stripe API</span></div>
+      <a href="https://github.com/batool-bader30/Car_rental" target="_blank" class="card-link">View on GitHub ↗</a>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-gallery">
+        <img src="d.1.jfif" alt="App screen 1">
+       <img src="d.2.jfif" alt="App screen 2">
+       <img src="d.3.jfif" alt="App screen 3">
+       <img src="d.4.jfif" alt="App screen 4">
+      </div>
+      <div class="card-num">06</div>
+      <h3>Doctor Appointment Booking</h3>
+      <p>Mobile app for discovering doctors and booking medical appointments, with user authentication, location tracking, and full appointment management.</p>
+      <div class="tags"><span class="tag">Flutter</span><span class="tag">Firebase Auth</span><span class="tag">Firestore</span><span class="tag">Google Maps</span></div>
+      <a href="https://github.com/batool-bader30/DocTime" target="_blank" class="card-link">View on GitHub ↗</a>
+    </div>
+
+    
+    <div class="card reveal">
+      <div class="card-gallery">
+       <img src="y.2.JPG" alt="App screen 1">
+       <img src="y.1.jpg" alt="App screen 2">
+       <img src="y.3.JPG" alt="App screen 3">
+       <img src="y.4.JPG" alt="App screen 4">
+       
+      </div>
+      <div class="card-num">04</div>
+      <h3>Yarmouk Express</h3>
+      <p>Graduation project — a public transportation booking system built specifically for university students, with complex dynamic booking logic, from design through full implementation.</p>
+      <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Firebase</span></div>
+      <a href="https://github.com/batool-bader30/YUApp" target="_blank" class="card-link">View on GitHub ↗</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="eyebrow">Let's Talk</div>
+  <h2 class="title">Get In Touch</h2>
+  <p class="lead">Have a project idea or a job opportunity? Reach out and let's talk.</p>
+  <a href="mailto:batool.osama304@gmail.com" class="contact-email">batool.osama304@gmail.com</a>
+  <div class="social-row">
+    <a href="tel:+962780683005">+962 7 8068 3005</a>
+    <a href="https://github.com/batool-bader30" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/batool-bader-2a77b92b4" target="_blank">LinkedIn</a>
+  </div>
+  <p style="margin-top:26px;color:var(--text-dim);font-family:var(--mono);font-size:13px;">📍 Amman, Jordan</p>
+</section>
+
+<footer>© <span id="year"></span> Batool Bader — Built with passion and one line of code at a time.</footer>
+
+<!-- Lightbox for enlarging gallery images -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">✕</span>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Click any gallery <img> to enlarge it
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.card-gallery img').forEach(img=>{
+    img.addEventListener('click', ()=>{
+      lightboxImg.src = img.src;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', ()=>lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+</script>
+
+</body>
+</html>
